@@ -18,6 +18,7 @@ describe("Todo App", () => {
 
     cy.get("ul li span").should("contain.text", "Sa ma uit la meci maine");
   });
+
   it("Ar trebui sa marcheze un todo, ca fiind completat si sa verifice clasa si starea lui", () => {
     cy.get('input[placeholder="Adaugă o sarcină nouă"]').type("Ana are mere");
     cy.get("button.add-task").click();
@@ -25,5 +26,13 @@ describe("Todo App", () => {
     cy.get('input[type="checkbox"]').check();
 
     cy.get("span").should("have.class", "done");
+  });
+
+  it("ar trbeui sa stearga un todo si sa verifice ca nu mai exista.", () => {
+    cy.get('input[placeholder="Adaugă o sarcină nouă"]').type('Asta e un todo ce trebuie STERS')
+    cy.get("button.add-task").click()
+
+    cy.get("button.remove-task").click()
+    cy.get('ul li').should('not.exist')
   });
 });
