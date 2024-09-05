@@ -29,10 +29,25 @@ describe("Todo App", () => {
   });
 
   it("ar trbeui sa stearga un todo si sa verifice ca nu mai exista.", () => {
-    cy.get('input[placeholder="Adaugă o sarcină nouă"]').type('Asta e un todo ce trebuie STERS')
-    cy.get("button.add-task").click()
+    cy.get('input[placeholder="Adaugă o sarcină nouă"]').type(
+      "Asta e un todo ce trebuie STERS"
+    );
+    cy.get("button.add-task").click();
 
-    cy.get("button.remove-task").click()
-    cy.get('ul li').should('not.exist')
+    cy.get("button.remove-task").click();
+    cy.get("ul li").should("not.exist");
+  });
+
+  it("Ar trebui sa stearga toate todo-urile si sa verifice ca nu exista", () => {
+    cy.get('input[placeholder="Adaugă o sarcină nouă"]').type(
+      "Asta e un todo ce trebuie STERS"
+    );
+    cy.get("button.add-task").click();
+    cy.get('input[placeholder="Adaugă o sarcină nouă"]').type(
+      "Asta e un alt todo ce trebuie STERS"
+    );
+    cy.get("button.add-task").click();
+    cy.get("button.delete-all").click();
+    cy.get("ul li").should("not.exist");
   });
 });
